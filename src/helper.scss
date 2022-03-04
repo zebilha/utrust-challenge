@@ -8,11 +8,11 @@ $small-font-size: 12px;
   border-radius: 8px !important;
   border: 1px solid rgba(105, 50, 212, 0.2) !important;
 
-  header {
+  .header {
     font-size: 20px !important;
   }
 
-  body {
+  .body {
     background-color: $secondary !important;
     border-top: $border-style;
   }

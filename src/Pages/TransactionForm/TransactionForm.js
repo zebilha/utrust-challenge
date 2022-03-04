@@ -50,8 +50,8 @@ const TransactionForm = ({ addresses, updateTransactionInfo }) => {
 
   return (
     <div className="card">
-      <header className="p-4">Please fill the form to send Ethereum</header>
-      <body>
+      <div className="header p-4">Please fill the form to send Ethereum</div>
+      <div className="body">
         <Form
           metadata={metadata}
           sendETH={sendETH}
@@ -60,7 +60,7 @@ const TransactionForm = ({ addresses, updateTransactionInfo }) => {
           isFromValid={from.isValid}
           fromValue={from.value}
         ></Form>
-      </body>
+      </div>
     </div>
   );
 };

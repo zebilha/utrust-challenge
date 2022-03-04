@@ -53,7 +53,7 @@ const App = () => {
   return (
     <div className="App d-flex justify-content-center">
       <div className="d-flex flex-column align-self-center">
-        <header>
+        <div className="header">
           <img
             src={logo}
             className="App-logo d-flex justify-content-start"
@@ -63,10 +63,10 @@ const App = () => {
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
             integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           />
-        </header>
-        <body>
+        </div>
+        <div className="body">
           <Routes>
             <Route
               exact
@@ -97,7 +97,7 @@ const App = () => {
               }
             />
           </Routes>
-        </body>
+        </div>
       </div>
     </div>
   );

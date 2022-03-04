@@ -8,8 +8,8 @@ import success_img from '../../success-sent.png';
 const TransactionComplete = ({ transactionInfo }) => {
   return (
     <div className="card">
-      <header className="p-4">Transaction complete</header>
-      <body>
+      <div className="header p-4">Transaction complete</div>
+      <div className="body">
         <div className="d-flex justify-content-center">
           <img src={success_img} className="Success-img" alt="success-img" />
         </div>
@@ -22,7 +22,7 @@ const TransactionComplete = ({ transactionInfo }) => {
           <label>To</label>
           <span className="address">{transactionInfo.to}</span>
         </div>
-      </body>
+      </div>
     </div>
   );
 };

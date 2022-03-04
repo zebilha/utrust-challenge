@@ -10,8 +10,8 @@ const AddressesManagement = ({ addresses }) => {
 
   return (
     <div className="card">
-      <header className="p-4">My Ethereum addresses</header>
-      <body>
+      <div className="header p-4">My Ethereum addresses</div>
+      <div className="body">
         {addresses && addresses.length > 0
           ? addresses.map((address, index) => (
               <>
@@ -26,13 +26,13 @@ const AddressesManagement = ({ addresses }) => {
               </>
             ))
           : null}
-      </body>
-      <footer className="addresses-footer d-flex justify-content-between p-3">
+      </div>
+      <div className="addresses-footer d-flex justify-content-between p-3">
         <span>Please copy the address from which you wish to send money.</span>
         <button onClick={() => navigate('/send', { replace: true })}>
           Next
         </button>
-      </footer>
+      </div>
     </div>
   );
 };

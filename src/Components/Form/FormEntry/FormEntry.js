@@ -11,7 +11,7 @@ const FormEntry = ({ id, type, updateInput, isFromValid, fromValue }) => {
         <input
           type={type}
           onChange={(value) => updateInput(id, value.currentTarget.value)}
-          className={isFromInvalid ? 'invalid' : null}
+          className={`${id}${isFromInvalid ? ' invalid' : ''}`}
         ></input>
         {isFromInvalid ? (
           <span>Please use an Ethereum address from your list.</span>
