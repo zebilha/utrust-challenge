@@ -13,6 +13,7 @@
     "react-fast-compare": "^3.2.0",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "use-state-with-callback": "^2.0.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

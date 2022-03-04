@@ -1,11 +1,13 @@
 import isEqual from 'react-fast-compare';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import './App.scss';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import logo from './utrust-logo.png';
 import AddressesManagement from './Pages/AddressesManagement/AddressesManagement';
 import TransactionForm from './Pages/TransactionForm/TransactionForm';
 import TransactionComplete from './Pages/TransactionComplete/TransactionComplete';
+import { useNavigate } from 'react-router-dom';
+import { useStateWithCallbackLazy } from 'use-state-with-callback';
 
 const mockAddresses = [
   //vb
@@ -18,18 +20,34 @@ const mockAddresses = [
   { path: '0x0D8775F648430679A709E98d2b0Cb6250d2887EF', amount: 0.01323 },
 ];
 const App = () => {
-  const [addresses] = useState(mockAddresses);
-  const [transactionInfo, setTransactionInfo] = useState({
-    from: '',
-    to: '',
-    amount: '',
+  const [state, setState] = useStateWithCallbackLazy({
+    addresses: mockAddresses,
+    transactionInfo: {
+      from: '',
+      to: '',
+      amount: '',
+    },
   });
+  const navigate = useNavigate();
 
   const updateTransactionInfo = useCallback(
     (from, to, amount) => {
-      setTransactionInfo({ from: from, to: to, amount: amount });
+      let addressesAux = [...state.addresses];
+
+      addressesAux.find((a) => a.path === from).amount -= amount;
+
+      if (addressesAux.map((a) => a.path).includes(to))
+        addressesAux.find((a) => a.path === to).amount += amount;
+
+      setState(
+        {
+          addresses: addressesAux,
+          transactionInfo: { from: from, to: to, amount: amount },
+        },
+        () => navigate('/send/success', { replace: true })
+      );
     },
-    [setTransactionInfo]
+    [setState, state, navigate]
   );
 
   return (
@@ -49,43 +67,36 @@ const App = () => {
           />
         </header>
         <body>
-          <Router>
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={
-                  <AddressesManagement
-                    addresses={addresses}
-                  ></AddressesManagement>
-                }
-              />
-              <Route
-                exact
-                path="/send"
-                element={
-                  <TransactionForm
-                    addresses={addresses}
-                    updateTransactionInfo={updateTransactionInfo}
-                  ></TransactionForm>
-                }
-              />
-              <Route
-                exact
-                path="/send/success"
-                element={
-                  <TransactionComplete
-                    //transactionInfo={transactionInfo}
-                    transactionInfo={{
-                      from: '0xdc9Ac3C20D1ed0B540dF9b1feDC10039Df13F99c',
-                      to: '0x0D8775F648430679A709E98d2b0Cb6250d2887EF',
-                      amount: 93.1111,
-                    }}
-                  ></TransactionComplete>
-                }
-              />
-            </Routes>
-          </Router>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <AddressesManagement
+                  addresses={state.addresses}
+                ></AddressesManagement>
+              }
+            />
+            <Route
+              exact
+              path="/send"
+              element={
+                <TransactionForm
+                  addresses={state.addresses}
+                  updateTransactionInfo={updateTransactionInfo}
+                ></TransactionForm>
+              }
+            />
+            <Route
+              exact
+              path="/send/success"
+              element={
+                <TransactionComplete
+                  transactionInfo={state.transactionInfo}
+                ></TransactionComplete>
+              }
+            />
+          </Routes>
         </body>
       </div>
     </div>

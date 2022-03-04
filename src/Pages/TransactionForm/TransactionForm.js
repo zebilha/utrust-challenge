@@ -10,7 +10,7 @@ const metadata = [
   { id: 'amount', type: 'number' },
 ];
 
-const TransactionForm = ({ addresses }) => {
+const TransactionForm = ({ addresses, updateTransactionInfo }) => {
   const [from, setFrom] = useState({ value: null, isValid: true });
   const [to, setTo] = useState('');
   const [amount, setAmount] = useState('');
@@ -23,8 +23,8 @@ const TransactionForm = ({ addresses }) => {
   }, [from, to, amount]);
 
   const sendETH = useCallback(() => {
-    //
-  }, [from, to, amount]);
+    updateTransactionInfo(from.value, to, amount);
+  }, [from, to, amount, updateTransactionInfo]);
 
   const updateInput = useCallback(
     (id, newValue) => {
@@ -67,6 +67,7 @@ const TransactionForm = ({ addresses }) => {
 
 TransactionForm.propTypes = {
   addresses: PropTypes.array,
+  updateTransactionInfo: PropTypes.func,
 };
 
 export default React.memo(TransactionForm, isEqual);
