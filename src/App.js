@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import logo from './utrust-logo.png';
@@ -19,6 +19,18 @@ const mockAddresses = [
 ];
 const App = () => {
   const [addresses] = useState(mockAddresses);
+  const [transactionInfo, setTransactionInfo] = useState({
+    from: '',
+    to: '',
+    amount: '',
+  });
+
+  const updateTransactionInfo = useCallback(
+    (from, to, amount) => {
+      setTransactionInfo({ from: from, to: to, amount: amount });
+    },
+    [setTransactionInfo]
+  );
 
   return (
     <div className="App d-flex justify-content-center">
@@ -52,13 +64,25 @@ const App = () => {
                 exact
                 path="/send"
                 element={
-                  <TransactionForm addresses={addresses}></TransactionForm>
+                  <TransactionForm
+                    addresses={addresses}
+                    updateTransactionInfo={updateTransactionInfo}
+                  ></TransactionForm>
                 }
               />
               <Route
                 exact
                 path="/send/success"
-                element={<TransactionComplete></TransactionComplete>}
+                element={
+                  <TransactionComplete
+                    //transactionInfo={transactionInfo}
+                    transactionInfo={{
+                      from: '0xdc9Ac3C20D1ed0B540dF9b1feDC10039Df13F99c',
+                      to: '0x0D8775F648430679A709E98d2b0Cb6250d2887EF',
+                      amount: 93.1111,
+                    }}
+                  ></TransactionComplete>
+                }
               />
             </Routes>
           </Router>

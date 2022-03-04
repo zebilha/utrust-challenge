@@ -1,7 +1,6 @@
 import isEqual from 'react-fast-compare';
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './TransactionForm.scss';
 import '../../helper.scss';
 import Form from '../../Components/Form/Form';
 
