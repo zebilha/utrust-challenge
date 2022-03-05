@@ -30,3 +30,7 @@ Runs application tests in console mode.
 - Some components have no `keys`, and I recognize that's not recommended;
 - I understand that having a general `state` in the `App.js` isn't recommended, however it was the solution I found to reduce the number of renders. Otherwise I would need to add an `useEffect` to update addresses every time the `transactionInfo` is updated and that would cause an infinity loop because the `address` state would have to be a dependency.
 - Finally I also understand that in reality storing the transaction info and sending the transaction are two completely separated actions, but for the mock-up purposes it works as intended how it is implemented.
+
+## UPDATE 05-03-2022
+
+- No animated loading was implemented, however it would be convenient to display one after the user sends a transaction.
